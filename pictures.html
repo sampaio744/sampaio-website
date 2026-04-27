@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pictures — Luiz Sampaio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --crimson: #8b0000;
+      --burgundy: #4d1e2e;
+      --amber: #c47a28;
+      --amber-light: #e8a04a;
+      --bg: #f5f1ec;
+      --surface: #ffffff;
+      --text: #1c1a17;
+      --text-2: #3d3830;
+      --text-muted: #7a736c;
+      --border: #ddd6cd;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--crimson);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.28);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+    }
+
+    .site-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      line-height: 1.15;
+    }
+
+    .site-title small {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.62);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    nav { background: var(--burgundy); }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      overflow-x: auto;
+    }
+
+    nav a {
+      padding: 11px 20px;
+      color: rgba(255,255,255,0.76);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+      display: inline-block;
+    }
+
+    nav a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-bottom-color: var(--amber-light);
+    }
+
+    nav a.active {
+      color: #fff;
+      border-bottom-color: var(--amber);
+    }
+
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 44px 24px 80px;
+      flex: 1;
+    }
+
+    .page-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--crimson);
+      margin-bottom: 28px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    figure.gallery-item {
+      background: var(--surface);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    figure.gallery-item:hover img {
+      transform: scale(1.03);
+    }
+
+    .gallery-item .img-wrap {
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item figcaption {
+      padding: 12px 16px 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-2);
+      flex: 1;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .lightbox-inner img {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .lightbox-caption {
+      color: rgba(255,255,255,0.82);
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .lightbox-close:hover { opacity: 1; }
+
+    footer {
+      background: var(--burgundy);
+      padding: 24px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #fff; text-decoration: underline; }
+
+    :focus-visible {
+      outline: 3px solid var(--amber-light);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .site-title { font-size: 22px; }
+      nav a { font-size: 11.5px; padding: 9px 13px; }
+      .page-wrap { padding: 28px 16px 60px; }
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+
+    @media (max-width: 400px) {
+      .gallery { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">
+        Luiz Sampaio
+        <small>Senior Researcher · CBPF/MCTI · Rio de Janeiro</small>
+      </a>
+    </div>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="pictures.html" class="active" aria-current="page">Pictures</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-wrap">
+
+      <h1 class="page-heading">Pictures</h1>
+
+      <div class="gallery" role="list" aria-label="Laboratory and research images">
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_2b79e7f9afc3436a89cc8208ee86767f~mv2.jpg"
+          data-caption="Magneto-optical Kerr effect setup">
+          <div class="img-wrap">
+            <img src="images/6b57b7_2b79e7f9afc3436a89cc8208ee86767f~mv2.jpg"
+                 alt="Magneto-optical Kerr effect setup" loading="lazy">
+          </div>
+          <figcaption>Magneto-optical Kerr effect setup</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_09206d2ce9224b45a7a8f9c02bd705ae~mv2.jpg"
+          data-caption="Ferromagnetic resonance setup (FMR)">
+          <div class="img-wrap">
+            <img src="images/6b57b7_09206d2ce9224b45a7a8f9c02bd705ae~mv2.jpg"
+                 alt="Ferromagnetic resonance setup (FMR)" loading="lazy">
+          </div>
+          <figcaption>Ferromagnetic resonance setup (FMR)</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_2e8c6bc9a44243478775d13cf8e64327~mv2.jpg"
+          data-caption="Doing e-beam lithography…">
+          <div class="img-wrap">
+            <img src="images/6b57b7_2e8c6bc9a44243478775d13cf8e64327~mv2.jpg"
+                 alt="Doing e-beam lithography" loading="lazy">
+          </div>
+          <figcaption>Doing e-beam lithography…</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_5626df108f964927b522f58ac2df8e40~mv2.jpg"
+          data-caption="Nanowires with pad contacts">
+          <div class="img-wrap">
+            <img src="images/6b57b7_5626df108f964927b522f58ac2df8e40~mv2.jpg"
+                 alt="Nanowires with pad contacts" loading="lazy">
+          </div>
+          <figcaption>Nanowires with pad contacts</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_42edc93147624659a019b24c7fbb71a2~mv2.jpg"
+          data-caption="High resolution TEM image of a nanowire">
+          <div class="img-wrap">
+            <img src="images/6b57b7_42edc93147624659a019b24c7fbb71a2~mv2.jpg"
+                 alt="High resolution TEM image of a nanowire" loading="lazy">
+          </div>
+          <figcaption>High resolution TEM image of a nanowire</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_edde229fa50242de81159f44c390e37d~mv2.png"
+          data-caption="FeNi line 400 nm width with pad contacts for magnetotransport measurements">
+          <div class="img-wrap">
+            <img src="images/6b57b7_edde229fa50242de81159f44c390e37d~mv2.png"
+                 alt="FeNi line 400 nm width with pad contacts for magnetotransport measurements" loading="lazy">
+          </div>
+          <figcaption>FeNi line 400 nm width with pad contacts for magnetotransport measurements</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_580765a45a514ba6bed419e25409262f~mv2.png"
+          data-caption="FeNi line with a notch for vortex domain wall pinning–depinning dynamics">
+          <div class="img-wrap">
+            <img src="images/6b57b7_580765a45a514ba6bed419e25409262f~mv2.png"
+                 alt="FeNi line with a notch for vortex domain wall pinning–depinning dynamics" loading="lazy">
+          </div>
+          <figcaption>FeNi line with a notch for vortex domain wall pinning–depinning dynamics</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_a3d6c35d309845fc8ca865490e648a1a~mv2.png"
+          data-caption="Vortex domain wall propagation on Y asymmetric lines">
+          <div class="img-wrap">
+            <img src="images/6b57b7_a3d6c35d309845fc8ca865490e648a1a~mv2.png"
+                 alt="Vortex domain wall propagation on Y asymmetric lines" loading="lazy">
+          </div>
+          <figcaption>Vortex domain wall propagation on Y asymmetric lines</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_b98229a1245a41539d2915841da73fb4~mv2.png"
+          data-caption="Hysteresis cycle of FeNi disks obtained by micromagnetic simulations">
+          <div class="img-wrap">
+            <img src="images/6b57b7_b98229a1245a41539d2915841da73fb4~mv2.png"
+                 alt="Hysteresis cycle of FeNi disks obtained by micromagnetic simulations" loading="lazy">
+          </div>
+          <figcaption>Hysteresis cycle of FeNi disks obtained by micromagnetic simulations</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_866bfd59a3de4ab781a400bc9d5165c4~mv2.png"
+          data-caption="Vortex domain wall passing by a notch in a FeNi line">
+          <div class="img-wrap">
+            <img src="images/6b57b7_866bfd59a3de4ab781a400bc9d5165c4~mv2.png"
+                 alt="Vortex domain wall passing by a notch in a FeNi line" loading="lazy">
+          </div>
+          <figcaption>Vortex domain wall passing by a notch in a FeNi line</figcaption>
+        </figure>
+
+        <figure class="gallery-item" role="listitem" tabindex="0"
+          data-src="images/6b57b7_7b85ad55c52647c391314bde3618e54e~mv2.png"
+          data-caption="Electric current map in a FeNi disk">
+          <div class="img-wrap">
+            <img src="images/6b57b7_7b85ad55c52647c391314bde3618e54e~mv2.png"
+                 alt="Electric current map in a FeNi disk" loading="lazy">
+          </div>
+          <figcaption>Electric current map in a FeNi disk</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <img id="lightbox-img" src="" alt="">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Luiz C. Sampaio &nbsp;·&nbsp; Brazilian Centre for Research in Physics (CBPF/MCTI) &nbsp;·&nbsp; <a href="mailto:sampaio@cbpf.br">sampaio@cbpf.br</a></p>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lightbox-img');
+    const lbCap    = document.getElementById('lightbox-caption');
+    const lbClose  = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.gallery-item').forEach(function(fig) {
+      fig.addEventListener('click', function() { open(fig); });
+      fig.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(fig); }
+      });
+    });
+
+    function open(fig) {
+      lbImg.src = fig.dataset.src;
+      lbImg.alt = fig.dataset.caption;
+      lbCap.textContent = fig.dataset.caption;
+      lightbox.classList.add('open');
+      lbClose.focus();
+    }
+
+    function close() {
+      lightbox.classList.remove('open');
+      lbImg.src = '';
+    }
+
+    lbClose.addEventListener('click', close);
+    lightbox.addEventListener('click', function(e) { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+  </script>
+
+</body>
+</html>

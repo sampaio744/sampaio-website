@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications — Luiz Sampaio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --crimson: #8b0000;
+      --burgundy: #4d1e2e;
+      --amber: #c47a28;
+      --amber-light: #e8a04a;
+      --bg: #f5f1ec;
+      --surface: #ffffff;
+      --text: #1c1a17;
+      --text-2: #3d3830;
+      --text-muted: #7a736c;
+      --border: #ddd6cd;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--crimson);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.28);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+    }
+
+    .site-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      line-height: 1.15;
+    }
+
+    .site-title small {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.62);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    nav { background: var(--burgundy); }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      overflow-x: auto;
+    }
+
+    nav a {
+      padding: 11px 20px;
+      color: rgba(255,255,255,0.76);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+      display: inline-block;
+    }
+
+    nav a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-bottom-color: var(--amber-light);
+    }
+
+    nav a.active {
+      color: #fff;
+      border-bottom-color: var(--amber);
+    }
+
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 44px 24px 80px;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 6px;
+      padding: 36px 40px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--crimson);
+      margin-bottom: 28px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Year groups ── */
+    .pub-year-group {
+      margin-bottom: 32px;
+    }
+
+    .pub-year-group:last-child { margin-bottom: 0; }
+
+    .pub-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--crimson);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Individual publication entries ── */
+    .pub-entry {
+      padding: 14px 0;
+      border-bottom: 1px solid #ede8e2;
+    }
+
+    .pub-entry:last-child { border-bottom: none; padding-bottom: 0; }
+    .pub-entry:first-child { padding-top: 0; }
+
+    .pub-title {
+      font-size: 15.5px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .pub-authors {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+
+    .pub-journal {
+      font-size: 13.5px;
+      color: var(--text-2);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ── Thesis entries ── */
+    .thesis-entry {
+      padding: 12px 0;
+      border-bottom: 1px solid #ede8e2;
+    }
+
+    .thesis-entry:last-child { border-bottom: none; padding-bottom: 0; }
+    .thesis-entry:first-child { padding-top: 0; }
+
+    .thesis-student {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .thesis-title {
+      font-size: 14px;
+      color: var(--text-2);
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+
+    .thesis-year {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background: var(--burgundy);
+      padding: 24px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #fff; text-decoration: underline; }
+
+    :focus-visible {
+      outline: 3px solid var(--amber-light);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .site-title { font-size: 22px; }
+      nav a { font-size: 11.5px; padding: 9px 13px; }
+      .card { padding: 22px 18px; }
+      .page-wrap { padding: 28px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">
+        Luiz Sampaio
+        <small>Senior Researcher · CBPF/MCTI · Rio de Janeiro</small>
+      </a>
+    </div>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html" class="active" aria-current="page">Publications</a>
+      <a href="pictures.html">Pictures</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-wrap">
+
+      <!-- ── Peer-reviewed publications ── -->
+      <section class="card" aria-label="Peer-reviewed publications">
+        <h1 class="section-heading">Publications</h1>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2025</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Disentangling edge and bulk spin-to-charge interconversion in MoS₂ monolayer flakes</p>
+            <p class="pub-authors">RT Victor, SH Safer, JR Morroquin, M Costa, JF Felix, V Carozo, LC Sampaio, F Garcia</p>
+            <p class="pub-journal">Nature Communications, 16, 3075 (2025)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2023</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Synthetic route to low damping in ferromagnetic thin-films</p>
+            <p class="pub-authors">S Azzawi, A Umerski, LC Sampaio, SA Bunyaev, GN Kakazi, D Atkinson</p>
+            <p class="pub-journal">APL Materials, 11, 1 (2023)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Automated mechanical exfoliation technique: a spin pumping study in YIG/TMD heterostructures</p>
+            <p class="pub-authors">RT Victor, JR Morroquin, J Ricardo, SH Safer, DA Dugato, BS Archanjo, LC Sampaio, F Garcia, JF Felix</p>
+            <p class="pub-journal">Nanoscale Horizons, 8, 1568–1576 (2023)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2022</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Reproducible low Gilbert Damping Yttrium Iron Garnet by Magnetron Sputtering</p>
+            <p class="pub-authors">R Torrão, OC Alves, BS Archanjo, LC Sampaio, F Garcia</p>
+            <p class="pub-journal">Journal of Alloys and Compounds, 923, 166300 (2022)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetoelastic modes in Néel domain walls</p>
+            <p class="pub-authors">D Froes, M Arana, JP Sinnecker, LC Sampaio</p>
+            <p class="pub-journal">Journal of Applied Physics, 132, 223908 (2022)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Recent progress in the spin Seebeck and spin Peltier effects in insulating magnets</p>
+            <p class="pub-authors">Samir S Costa, LC Sampaio</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 547, 168773 (2022)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2021</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Acoustic wave surfing: spin waves and spin pumping driven by elastic wave</p>
+            <p class="pub-authors">D Froes, M Arana, LC Sampaio, JP Sinnecker</p>
+            <p class="pub-journal">Journal of Physics D: Applied Physics, 54, 255001 (2021)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2020</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Magnon theory for the spin Peltier effect</p>
+            <p class="pub-authors">SS Costa, LC Sampaio</p>
+            <p class="pub-journal">Journal of Applied Physics, 53, 355001 (2020)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2019</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Influence of the magnon-phonon relaxation in the magnon transport under thermal gradient in yttrium iron garnet</p>
+            <p class="pub-authors">SS Costa, LC Sampaio</p>
+            <p class="pub-journal">Journal of Physics: Condensed Matter, 31, 275804 (2019)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2018</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Oscillatory interlayer coupling in spin Hall systems</p>
+            <p class="pub-authors">AM Gonçalves, F Garcia, HK Lee, A Smith, PR Soledade, CAC Passos, M Costa, NM Souza-Neto, IN Krivorotov, LC Sampaio, I Barsukov</p>
+            <p class="pub-journal">Scientific Reports, 8, 2318 (2018)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2017</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Enhanced magnetoresistance and pinning-depinning processes of vortex domain walls in ferromagnetic nanowires</p>
+            <p class="pub-authors">PR Soledade, J Brandão, A Mello, F Garcia, LC Sampaio</p>
+            <p class="pub-journal">Materials Research Express, 4, 025034 (2017)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Trajectory and chirality of vortex domain walls in ferromagnetic nanowires with an asymmetric Y-branch</p>
+            <p class="pub-authors">J Brandão, A Mello, F Garcia, LC Sampaio</p>
+            <p class="pub-journal">Journal of Applied Physics, 121, 093905 (2017)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2015</h2>
+          <div class="pub-entry">
+            <p class="pub-title">(Ga,In)P nanowires grown without intentional catalyst</p>
+            <p class="pub-authors">CF Cerqueira, CB Viana, C da Luz-Lima, N Perea-Lopez, M Terrones, E Falcão, AL Gomes, R Chassagnon, AL Pinto, LC Sampaio, M Sacilotti</p>
+            <p class="pub-journal">Journal of Crystal Growth, 431, 72 (2015)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2014</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Field-dependent perpendicular magnetic anisotropy in CoFeB thin films</p>
+            <p class="pub-authors">I Barsukov, Yu Fu, AM Gonçalves, M Spasova, M Farle, LC Sampaio, RE Arias, IN Krivorotov</p>
+            <p class="pub-journal">Applied Physics Letters, 105, 152403 (2014)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Control of the magnetic vortex chirality in Permalloy nanowires with asymmetric notches</p>
+            <p class="pub-authors">J Brandão, RL Novak, H Lozano, PR Soledade, A Mello, F Garcia, LC Sampaio</p>
+            <p class="pub-journal">Journal of Applied Physics, 116, 193902 (2014)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2012</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Vortex core magnetization dynamics induced by thermal excitation</p>
+            <p class="pub-authors">Tiago S Machado, Tatiana G Rappoport, Luiz C Sampaio</p>
+            <p class="pub-journal">Applied Physics Letters, 100, 112404 (2012)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2011</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetotransport in nanostructures: The role of inhomogeneous currents</p>
+            <p class="pub-authors">Tiago S Machado, M Argollo de Menezes, Tatiana G Rappoport, Luiz C Sampaio</p>
+            <p class="pub-journal">Journal of Applied Physics, 109, 093904 (2011)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2010</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Model for the growth of electrodeposited ferromagnetic aggregates under an in-plane magnetic field</p>
+            <p class="pub-authors">C Cronemberger, LC Sampaio, AP Guimarães, P Molho</p>
+            <p class="pub-journal">Physical Review E, 81, 021403 (2010)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2009</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetoresistance and magnetization reversal of single Co nanowires</p>
+            <p class="pub-authors">RA Silva, TS Machado, G Cernicchiaro, AP Guimarães, LC Sampaio</p>
+            <p class="pub-journal">Physical Review B, 79, 134434 (2009)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2008</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Static and dynamic properties of vortices in anisotropic magnetic disks</p>
+            <p class="pub-authors">Tiago S Machado, TG Rappoport, LC Sampaio</p>
+            <p class="pub-journal">Applied Physics Letters, 93, 112507–112509 (2008)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetic vortices in tridimensional nanomagnetic caps observed using transmission electron microscopy and magnetic force microscopy</p>
+            <p class="pub-authors">Márcio M Soares, Emilio De Biasi, Letícia N Coelho, Maurício C dos Santos, Fortunato S de Menezes, Marcelo Knobel, Luiz C Sampaio, Flávio Garcia</p>
+            <p class="pub-journal">Physical Review B, 77, 224405–224412 (2008)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2006</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Growth of fractal electrodeposited aggregates under action of electric and magnetic fields using a modified diffusion-limited aggregation algorithm</p>
+            <p class="pub-authors">Carolina M Cronemberger, LC Sampaio</p>
+            <p class="pub-journal">Physical Review E, 73, 041403 (2006)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Lasing threshold of diffusive random lasers in three dimensions</p>
+            <p class="pub-authors">FA Pinheiro, LC Sampaio</p>
+            <p class="pub-journal">Physical Review A, 73, 013826 (2006)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Imaging of Domain Wall Motion in Small Magnetic Particles through Near-field Microscopy</p>
+            <p class="pub-authors">Jeroen Schoenmaker, Antonio Domingues dos Santos, Yves Souche, Antonio Carlos Seabra, Luiz C Sampaio</p>
+            <p class="pub-journal">Applied Physics Letters, 88, 062506 (2006)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2005</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetic-induced second harmonic generation of light by exchange coupled bilayers</p>
+            <p class="pub-authors">LC Sampaio, J Hamrle, VV Pavlov, J Ferré, P Georges, A Brun, H Le Gall, J Ben Youssef</p>
+            <p class="pub-journal">Journal of the Optical Society of America B, 22(1), 119 (2005)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Domain patterning and thermodynamic properties in magnetic films with perpendicular anisotropy</p>
+            <p class="pub-authors">FS de Menezes, LC Sampaio</p>
+            <p class="pub-journal">Physical Review B, 72, 104413 (2005)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2004</h2>
+          <div class="pub-entry">
+            <p class="pub-title">In-depth selectivity of the Magnetic Second Harmonic Generation (MSHG) of light in a multilayer structure</p>
+            <p class="pub-authors">LC Sampaio, J Hamrle, A Mougin, J Ferré, F Garcia, F Fettar, B Dieny, A Brun</p>
+            <p class="pub-journal">Physical Review B, 70, 104403 (2004)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2003</h2>
+          <div class="pub-entry">
+            <p class="pub-title">High-resolution X-ray diffraction beamline at the LNLS for the study of charge, orbital and magnetic structures</p>
+            <p class="pub-authors">C Giles, F Yokaichiya, SW Kycia, LC Sampaio, DC Ardiles-Saravia, MKK Franco, RT Neuenschwander</p>
+            <p class="pub-journal">Journal of Synchrotron Radiation, 10, 430 (2003)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Probing interface magnetism in the FeMn/NiFe exchange bias system using magnetic second harmonic generation</p>
+            <p class="pub-authors">Luiz C Sampaio, Alexandra Mougin, Jacques Ferré, Patrick Georges, Alain Brun, Harry Bernas, Stefan Poppe, Tim Mewes, Jurgen Fassbender, Burkard Hillebrands</p>
+            <p class="pub-journal">Europhysics Letters, 63(6), 819 (2003)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2002</h2>
+          <div class="pub-entry">
+            <p class="pub-title">A depth profile XMCD study of Au/CoO/Co</p>
+            <p class="pub-authors">AD Alvarenga, F Garcia, WD Brewer, M Gruyters, M Gierlings, MS Reis, P Panissod, LC Sampaio, AP Guimarães</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 242–245, 958 (2002)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2001</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Power-law relaxation decay in two-dimensional arrays of magnetic dots interacting by long-range dipole-dipole interactions</p>
+            <p class="pub-authors">LC Sampaio, R Hyndman, FS de Menezes, JP Jamet, P Meyer, J Gierak, C Chappert, V Mathet, J Ferré</p>
+            <p class="pub-journal">Physical Review B, 64, 184440 (2001)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Tailoring coercivity in an array of glass-coated microwires</p>
+            <p class="pub-authors">EHCP Sinnecker, FS de Menezes, LC Sampaio, M Knobel, M Vazquez</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 226–230, 1467 (2001)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Electromagnetic scattering by small magnetic particles</p>
+            <p class="pub-authors">FA Pinheiro, AS Martinez, LC Sampaio</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 226–230, 1951 (2001)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">X-Ray Magnetic Circular Dichroism in Fe/NiO thin films</p>
+            <p class="pub-authors">AD Alvarenga, F Garcia, LC Sampaio, C Giles, RA Simão, CA Achete</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 233, 74 (2001)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Co magnetic instability study in RCo₃ by XMCD</p>
+            <p class="pub-authors">F Garcia, LC Sampaio, AY Takeuchi, HCN Tolentino</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 233, 48 (2001)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">2000</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Vanishing of energy transport velocity and diffusion constant of electromagnetic waves in disordered magnetic media</p>
+            <p class="pub-authors">FA Pinheiro, AS Martinez, LC Sampaio</p>
+            <p class="pub-journal">Physical Review Letters, 85, 5563 (2000)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetic microwires as macrospins in long-range dipole-dipole interaction</p>
+            <p class="pub-authors">LC Sampaio, EHCP Sinnecker, GR Cernichiaro, M Knobel, M Vazquez, J Velazquez</p>
+            <p class="pub-journal">Physical Review B, 61, 8976 (2000)</p>
+          </div>
+          <div class="pub-entry">
+            <p class="pub-title">New effects in light scattering in disordered media and coherent backscattering cone: systems of magnetic particles</p>
+            <p class="pub-authors">FA Pinheiro, AS Martinez, LC Sampaio</p>
+            <p class="pub-journal">Physical Review Letters, 84, 1435 (2000)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">1999</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Uniaxial in-plane magnetic anisotropy and exchange bias in Sm/Fe bilayers</p>
+            <p class="pub-authors">HJ Santos, FA Pinheiro, AY Takeuchi, LC Sampaio, RA Simão, CA Achete, M Cremona</p>
+            <p class="pub-journal">Physical Review B, 60, 68 (1999)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">1997</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Nonextensivity and Tsallis statistics in magnetic systems</p>
+            <p class="pub-authors">LC Sampaio, MP de Albuquerque, FS de Menezes</p>
+            <p class="pub-journal">Physical Review B, 55, 5611 (1997)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">1996</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Magnetic relaxation and formation of magnetic domains in ultrathin magnetic films with perpendicular anisotropy</p>
+            <p class="pub-authors">LC Sampaio, MP de Albuquerque, FS de Menezes</p>
+            <p class="pub-journal">Physical Review B, 54(19), 6465 (1996)</p>
+          </div>
+        </div>
+
+        <div class="pub-year-group">
+          <h2 class="pub-year">1990</h2>
+          <div class="pub-entry">
+            <p class="pub-title">Intrinsic Domain Wall Pinning in Hf(Fe₀.₅Al₀.₅)₂</p>
+            <p class="pub-authors">LC Sampaio, SF da Cunha</p>
+            <p class="pub-journal">Journal of Magnetism and Magnetic Materials, 88, 151 (1990)</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── Master's theses ── -->
+      <section class="card" aria-label="Master's dissertations advised">
+        <h2 class="section-heading">Master's Dissertations Advised</h2>
+
+        <div class="thesis-entry">
+          <p class="thesis-student">Paulo Roberto Soledade</p>
+          <p class="thesis-title">Transporte eletrônico em junções metal magnético e semicondutor</p>
+          <p class="thesis-year">2012</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Alexandre Medeiros Gonçalves</p>
+          <p class="thesis-title">Fabricação e Transporte eletrônico em nanofios de cobalto</p>
+          <p class="thesis-year">2010</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Jeovani Brandão</p>
+          <p class="thesis-title">Propriedades Magnéticas de Microdiscos de Permalloy (Ni₈₀Fe₂₀)</p>
+          <p class="thesis-year">2010</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Naiara Yohanna Klein</p>
+          <p class="thesis-title">Nanofios de Co: Fabricação, Análise Estrutural e Medidas de Transporte Eletrônico</p>
+          <p class="thesis-year">2010</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Carolina Ferreira Cerqueira</p>
+          <p class="thesis-title">Propriedades estruturais e de transporte eletrônico de ZnO eletrodepositado sobre Pt</p>
+          <p class="thesis-year">2010</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Tiago Siman Machado</p>
+          <p class="thesis-title">Operações lógicas com sistemas magnéticos</p>
+          <p class="thesis-year">2007</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Felipe Arruda de Araújo Pinheiro</p>
+          <p class="thesis-title">Propagação de ondas eletromagnéticas em meios magnéticos desordenados: localização fraca, velocidade de transporte de energia e constante de difusão</p>
+          <p class="thesis-year">2000</p>
+        </div>
+
+      </section>
+
+      <!-- ── Doctoral theses ── -->
+      <section class="card" aria-label="Doctoral theses advised">
+        <h2 class="section-heading">Doctoral Theses Advised</h2>
+
+        <div class="thesis-entry">
+          <p class="thesis-student">Carolina Ferreira Cerqueira</p>
+          <p class="thesis-title">Produção e Caracterização de Estruturas Semicondutoras: Filmes de ZnO/Ni e Nanofios de ZnO e GaInP</p>
+          <p class="thesis-year">2015</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Alexandre Medeiros Gonçalves</p>
+          <p class="thesis-title">Dinâmica da magnetização e propriedades de transporte em nanoestruturas</p>
+          <p class="thesis-year">2015</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Naiara Yohana Klein</p>
+          <p class="thesis-title">Fabricação de nanoestruturas com uso de litografia por feixe de elétrons</p>
+          <p class="thesis-year">2015</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Jeovani Brandão</p>
+          <p class="thesis-title">Medidas magneto-ópticas em nanoestruturas</p>
+          <p class="thesis-year">2014</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Tiago Siman Machado</p>
+          <p class="thesis-title">Transporte elétrico em nano-estruturas magnéticas</p>
+          <p class="thesis-year">2011</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Carolina Mendes Cronemberger</p>
+          <p class="thesis-title">Simulação do Crescimento de Estruturas Fractais sob Ação de Campo Magnético</p>
+          <p class="thesis-year">2009</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Flávio Garcia</p>
+          <p class="thesis-title">Estudo da Instabilidade Magnética do Co por Dicroismo Circular Magnético de Raios-X nos Compostos RCo</p>
+          <p class="thesis-year">2000</p>
+        </div>
+        <div class="thesis-entry">
+          <p class="thesis-student">Fortunado S. de Menezes</p>
+          <p class="thesis-title">Relaxação da magnetização e formação de domínios magnéticos em filmes finos</p>
+          <p class="thesis-year">1999</p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Luiz C. Sampaio &nbsp;·&nbsp; Brazilian Centre for Research in Physics (CBPF/MCTI) &nbsp;·&nbsp; <a href="mailto:sampaio@cbpf.br">sampaio@cbpf.br</a></p>
+  </footer>
+
+</body>
+</html>
