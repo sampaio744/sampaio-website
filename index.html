@@ -294,7 +294,9 @@
   </nav>
 
   <main class="hero">
-    <video class="hero-video" autoplay muted loop playsinline poster="" aria-hidden="true"></video>
+    <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="background.mp4" type="video/mp4">
+    </video>
 
     <section class="hero-copy" aria-labelledby="research-area">
       <p class="eyebrow" id="research-area">Condensed Matter Physics</p>
@@ -310,19 +312,6 @@
     </footer>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-  <script>
-    const video = document.querySelector(".hero-video");
-    const source = "background.m3u8";
-
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      video.src = source;
-    } else if (window.Hls && Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(source);
-      hls.attachMedia(video);
-    }
-  </script>
 </body>
 
 </html>
