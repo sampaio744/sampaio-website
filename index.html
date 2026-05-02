@@ -4,329 +4,253 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luiz Sampaio — Condensed Matter Physics</title>
+  <title>Condensed Matter Physics Research</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
     rel="stylesheet">
   <style>
     *,
     *::before,
     *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     :root {
-      --crimson: #8b0000;
-      --burgundy: #4d1e2e;
-      --amber: #c47a28;
-      --amber-light: #e8a04a;
-      --bg: #f5f1ec;
-      --surface: #ffffff;
-      --text: #1c1a17;
-      --text-2: #3d3830;
-      --text-muted: #7a736c;
-      --border: #ddd6cd;
+      --ink: #f7f3ec;
+      --muted: rgba(247, 243, 236, 0.74);
+      --line: rgba(247, 243, 236, 0.28);
+      --accent: #d9a441;
+      --deep: #050607;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--deep);
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      font-size: 17px;
-      line-height: 1.65;
-      color: var(--text);
-      background: var(--bg);
       min-height: 100vh;
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--deep);
+      overflow-x: hidden;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      padding: 34px clamp(22px, 5vw, 76px);
+      isolation: isolate;
+    }
+
+    .hero-video {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #111;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(5, 6, 7, 0.9) 0%, rgba(5, 6, 7, 0.68) 44%, rgba(5, 6, 7, 0.28) 100%),
+        linear-gradient(0deg, rgba(5, 6, 7, 0.68) 0%, rgba(5, 6, 7, 0.06) 42%, rgba(5, 6, 7, 0.42) 100%);
+    }
+
+    .hero::after {
+      z-index: -1;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 52%, transparent 100%);
+    }
+
+    .topbar {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      align-self: start;
+      min-height: 40px;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--crimson);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+    .brand {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.2rem, 2vw, 1.65rem);
+      font-weight: 600;
+      line-height: 1;
+      color: var(--ink);
     }
 
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 16px 24px;
-    }
-
-    .site-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 30px;
-      font-weight: 400;
-      color: #fff;
-      text-decoration: none;
-      display: block;
-      line-height: 1.15;
-    }
-
-    .site-title small {
-      display: block;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.62);
+    .place {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-top: 4px;
+      white-space: nowrap;
     }
 
-    nav {
-      background: var(--burgundy);
+    .place::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--accent);
     }
 
-    .nav-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
+    .hero-copy {
+      align-self: center;
+      width: min(760px, 100%);
+      padding: clamp(42px, 8vh, 86px) 0 clamp(54px, 10vh, 106px);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(3.1rem, 9vw, 7.2rem);
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .statement {
+      display: grid;
+      gap: 20px;
+      max-width: 68ch;
+      margin-top: clamp(30px, 5vh, 52px);
+      padding-left: clamp(18px, 3vw, 32px);
+      border-left: 2px solid var(--accent);
+    }
+
+    .statement p {
+      margin: 0;
+      color: rgba(247, 243, 236, 0.9);
+      font-size: clamp(1.02rem, 1.8vw, 1.34rem);
+      line-height: 1.62;
+    }
+
+    .footer-line {
       display: flex;
-      overflow-x: auto;
-    }
-
-    nav a {
-      padding: 11px 20px;
-      color: rgba(255, 255, 255, 0.76);
-      text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 500;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      align-self: end;
+      color: var(--muted);
+      font-size: 0.82rem;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+    }
+
+    .footer-line span {
       display: inline-block;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
     }
 
-    nav a:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.08);
-      border-bottom-color: var(--amber-light);
-    }
-
-    nav a.active {
-      color: #fff;
-      border-bottom-color: var(--amber);
-    }
-
-    .page-wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 44px 24px 80px;
-      flex: 1;
-    }
-
-    .card {
-      background: var(--surface);
-      border-radius: 6px;
-      padding: 36px 40px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.05);
-      margin-bottom: 24px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.07);
-    }
-
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 21px;
-      font-weight: 400;
-      color: var(--crimson);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .bio-text p {
-      font-size: 18px;
-      line-height: 1.75;
-      margin-bottom: 1em;
-      max-width: 68ch;
-    }
-
-    .bio-text p:last-child {
-      margin-bottom: 0;
-    }
-
-    .news-line {
-      margin-top: 22px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      font-size: 16px;
-      color: var(--text-2);
-    }
-
-    .badge {
-      display: inline-block;
-      background: var(--crimson);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 3px;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
-
-    .highlight-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: start;
-    }
-
-    .highlight-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-      display: block;
-    }
-
-    .highlight-caption p {
-      margin-bottom: 1em;
-      font-size: 15.5px;
-      line-height: 1.72;
-      color: var(--text-2);
-    }
-
-    .highlight-caption p:last-child {
-      margin-bottom: 0;
-    }
-
-    footer {
-      background: var(--burgundy);
-      padding: 24px;
-      text-align: center;
-    }
-
-    footer p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    footer a {
-      color: rgba(255, 255, 255, 0.82);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    :focus-visible {
-      outline: 3px solid var(--amber-light);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    @media (max-width: 640px) {
-      .site-title {
-        font-size: 22px;
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 100svh;
+        padding: 24px 20px;
       }
 
-      nav a {
-        font-size: 11.5px;
-        padding: 9px 13px;
+      .topbar,
+      .footer-line {
+        align-items: start;
+        flex-direction: column;
       }
 
-      .card {
-        padding: 22px 18px;
+      .place {
+        white-space: normal;
       }
 
-      .page-wrap {
-        padding: 28px 16px 60px;
+      .hero-copy {
+        padding: 52px 0 68px;
       }
 
-      .highlight-grid {
-        grid-template-columns: 1fr;
+      h1 {
+        max-width: 9ch;
       }
 
-      .bio-text p {
-        font-size: 16px;
+      .statement {
+        margin-top: 28px;
+        padding-left: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video {
+        display: none;
       }
     }
   </style>
 </head>
 
 <body>
+  <main class="hero">
+    <video class="hero-video" autoplay muted loop playsinline poster="" aria-hidden="true"></video>
 
-  <header>
-    <div class="header-inner">
-      <a href="index.html" class="site-title">
-        Luiz Sampaio
-        <small>Senior Researcher · CBPF/MCTI · Rio de Janeiro</small>
-      </a>
-    </div>
-  </header>
+    <header class="topbar" aria-label="Site header">
+      <div class="brand">Luiz Sampaio</div>
+      <div class="place">CBPF / MCTI</div>
+    </header>
 
-  <nav aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="active" aria-current="page">Home</a>
-      <a href="news.html">News</a>
-      <a href="research.html">Research</a>
-      <a href="publications.html">Publications</a>
-      <a href="pictures.html">Pictures</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
+    <section class="hero-copy" aria-labelledby="research-area">
+      <p class="eyebrow" id="research-area">Condensed Matter Physics</p>
+      <div class="statement">
+        <p>I develop research projects in Condensed Matter Physics with both experimental and theoretical emphasis on the study of magnetic, optical, and spin-dependent electronic transport properties in nanostructured and two-dimensional systems.</p>
+        <p>The projects are carried out at the Brazilian Centre for Research in Physics (CBPF/MCTI), where I hold the position of Senior Researcher.</p>
+      </div>
+    </section>
 
-  <main>
-    <div class="page-wrap">
-
-      <section class="card bio-text" aria-label="About">
-        <p>I develop research projects in Condensed Matter Physics with both experimental and theoretical emphasis on
-          the study of magnetic, optical, and spin-dependent electronic transport properties in nanostructured and
-          two-dimensional systems.</p>
-        <p>The projects are carried out at the Brazilian Centre for Research in Physics (CBPF/MCTI), where I hold the
-          position of Senior Researcher.</p>
-        <p class="news-line"><span class="badge">News</span> A recent highlight published in <em>Nature
-            Communications</em> (2025) — see the research highlight below.</p>
-      </section>
-
-      <section class="card" aria-label="Research highlight">
-        <h2 class="section-heading">Research Highlight — <em>Nature Communications</em> (2025)</h2>
-        <div class="highlight-grid">
-          <img
-            src="images/research-highlight.png"
-            alt="Spin current injection in MoS₂ triangular flakes — spin-to-charge conversion at center vs. edge"
-            width="480" height="358" fetchpriority="high">
-          <div class="highlight-caption">
-            <p>We investigate the process of spin current injection into an atomic layer of MoS₂, which takes the shape
-              of small triangles, and how the conversion of spin current into charge current occurs differently at the
-              center versus the edge — the former exhibiting semiconductor character and the latter metallic character.
-            </p>
-            <p>Spin-to-charge conversion in MoS₂ monolayers results from two simultaneous channels: (i) the
-              semiconductor contribution associated with the flake area, attributed to the inverse Rashba–Edelstein
-              effect (IREE), and (ii) the metallic contribution associated with the edges, likely related to the spin
-              Hall effect (SHE). These channels have opposite signs and compete, leading to a compensation point where
-              contributions cancel out.</p>
-            <p>The work demonstrates that light enables unprecedented control of spin injection — amplifying,
-              attenuating, or switching spin conversion — positioning this as a milestone for opto-spintronics at room
-              temperature.</p>
-          </div>
-        </div>
-      </section>
-
-    </div>
+    <footer class="footer-line">
+      <span>Magnetic, optical, and spin transport</span>
+      <span>Nanostructured and two-dimensional systems</span>
+    </footer>
   </main>
 
-  <footer>
-    <p>Luiz C. Sampaio &nbsp;·&nbsp; Brazilian Centre for Research in Physics (CBPF/MCTI) &nbsp;·&nbsp; <a
-        href="mailto:sampaio@cbpf.br">sampaio@cbpf.br</a></p>
-  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <script>
+    const video = document.querySelector(".hero-video");
+    const source = "background.m3u8";
 
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = source;
+    } else if (window.Hls && Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(source);
+      hls.attachMedia(video);
+    }
+  </script>
 </body>
 
 </html>
